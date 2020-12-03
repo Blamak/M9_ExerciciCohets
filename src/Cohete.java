@@ -1,34 +1,57 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Cohete {
 
 	private String code;
-	int numPropulsores;
+	private HashMap<Integer, Propulsor> propulsores = new HashMap<Integer, Propulsor>();
+	private List<Integer> potenciaPropulsores;
 
-	public Cohete(String code, int numPropulsores) throws Exception {
+	public Cohete(String code, List<Integer> potenciaPropulsores) throws Exception {
 		if (code.length() != 8) {
 			throw new Exception();
 		}
 
 		this.code = code;
-		this.numPropulsores = numPropulsores;
+		this.potenciaPropulsores= potenciaPropulsores;
+		
+		createPropulsores();
 	}
 
 	public String getCode() {
 		return this.code;
 	}
-
-	public int getNumPropulsores() {
-		return this.numPropulsores;
+	
+	public void createPropulsores() {
+		int contador = 0;
+		for (Integer potencia : this.potenciaPropulsores) {
+			Propulsor propulsor = new Propulsor(potencia);
+			propulsores.put(++contador,	propulsor);
+		}
+	}
+	
+	public String showPropulsores() {
+		String textoPotenciaPropulsores = "";
+		for (Propulsor propulsor : propulsores.values()) {
+			 textoPotenciaPropulsores += propulsor.getPotenciaMax() + ",";
+		}
+		
+		// Retorna el texto sin la última coma creada en el loop.
+		return textoPotenciaPropulsores.substring(0, textoPotenciaPropulsores.length() - 1);
 	}
 
+
+
 	public static void main(String[] args) throws Exception {
-		Cohete rocket1 = new Cohete("xxxxxxxx", 3);
-		Cohete rocket2 = new Cohete("LDSFJA32", 6);
+		
+		Cohete rocket1 = new Cohete("32WESSDS", Arrays.asList(10, 30, 80));
+		Cohete rocket2 = new Cohete("LDSFJA32", Arrays.asList(30, 40, 50, 50, 30, 10));
 
 		System.out.println(
 				"Output: \n" 
-				+ rocket1.getCode() + ": " + rocket1.getNumPropulsores() + " propulsores\n"
-				+ rocket2.getCode() + ": " + rocket2.getNumPropulsores() + " propulsores"
+				+ rocket1.getCode() + ": " + rocket1.showPropulsores() + "\n"
+				+ rocket2.getCode() + ": " + rocket2.showPropulsores()
 		);
 
 	}
