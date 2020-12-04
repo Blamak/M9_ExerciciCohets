@@ -1,9 +1,12 @@
+package Rocket;
 
 public class Propulsor {
 	
+	private int potenciaActual = 0;
 	private int potenciaMax;
 	
 	public Propulsor(int potenciaMax) {
+//		this.potenciaActual = potenciaActual;
 		this.potenciaMax = potenciaMax;
 	}
 
@@ -13,6 +16,14 @@ public class Propulsor {
 
 	public void setPotenciaMax(int potenciaMax) {
 		this.potenciaMax = potenciaMax;
+	}
+	
+	public void acelera() {
+		
+	}
+	
+	public void decelera() {
+		
 	}
 	
 	
