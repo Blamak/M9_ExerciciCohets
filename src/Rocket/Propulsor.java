@@ -17,15 +17,6 @@ public class Propulsor {
 	public void setPotenciaMax(int potenciaMax) {
 		this.potenciaMax = potenciaMax;
 	}
-	
-	public void acelera() {
 		
-	}
-	
-	public void decelera() {
-		
-	}
-	
-	
 
 }
