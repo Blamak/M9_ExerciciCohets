@@ -3,10 +3,12 @@ package windows;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +17,8 @@ import javax.swing.JPanel;
 import Rocket.Cohete;
 
 class Marco extends JFrame {
-	
-	private Cohete cohete;
+
+	protected Cohete cohete;
 
 	/**
 	 * 
@@ -24,43 +26,89 @@ class Marco extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Marco(Cohete cohete) throws Exception {
-		
+
 		this.cohete = cohete;
+		
+		createWindow();
 
-		setBounds(400, 300, 800, 400);
+		
 
-		setTitle("Código Cohete: " + cohete.getCode());
+	}
+	
+	// crear ventana
+	public void createWindow() {
+		setBounds(400, 300, 500, 400);
+		setPreferredSize(new Dimension(600, 450));
+		pack();
+
+		setTitle("Código Cohete: " + this.cohete.getCode());
 
 		JPanel laminaPropulsores = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		ponerPropulsores(this.cohete, laminaPropulsores, "<html><br/>&nbsp&nbsp&nbsp&nbsp Prop1<br/>nasjdkasldjas</html>");
+		ponerPropulsores(this.cohete, laminaPropulsores);
 
 		add(laminaPropulsores, BorderLayout.NORTH);
 
 		JPanel laminaBotones = new JPanel();
+		laminaBotones.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0)); 
 
 		ponerBoton(laminaBotones, "Acelera", new ActionListener() {
 
-			public void actionPerformed(ActionEvent evento) {
 
+			public void actionPerformed(ActionEvent evento) {
+				try {
+					cohete.acelerar();
+					laminaPropulsores.removeAll();
+					ponerPropulsores(cohete, laminaPropulsores);
+					laminaPropulsores.validate();
+			        laminaPropulsores.repaint();
+					
+//					add(laminaPropulsores, BorderLayout.NORTH);
+//					laminaPropulsores.;
+//					dispose();
+					
+//					JFrame marco = new Marco(cohete );
+//
+//					marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//					marco.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
 		ponerBoton(laminaBotones, "Frena", new ActionListener() {
 
 			public void actionPerformed(ActionEvent evento) {
-
+				try {
+					cohete.frenar();
+					laminaPropulsores.removeAll();
+					ponerPropulsores(cohete, laminaPropulsores);
+					laminaPropulsores.validate();
+			        laminaPropulsores.repaint();
+//					dispose();
+//					JFrame marco = new Marco(cohete);
+//
+//					marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//					marco.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
 		add(laminaBotones, BorderLayout.SOUTH);
-
 	}
 
 //ponemos texto de los propulsores
-	public void ponerPropulsores(Cohete rocket, Container c, String propulsor) {
+	public void ponerPropulsores(Cohete rocket, Container c) {
 		JLabel prop1 = new JLabel();
-		prop1.setText(rocket.showPropulsores());
+		String text = "<html>" + rocket.showPropulsores() + "<br><br></html>";
+		prop1.setText(text);
 		c.add(prop1);
 	}
 

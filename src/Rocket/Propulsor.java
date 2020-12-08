@@ -6,8 +6,15 @@ public class Propulsor {
 	private int potenciaMax;
 	
 	public Propulsor(int potenciaMax) {
-//		this.potenciaActual = potenciaActual;
 		this.potenciaMax = potenciaMax;
+	}
+
+	public int getPotenciaActual() {
+		return this.potenciaActual;
+	}
+
+	public void setPotenciaActual(int potenciaActual) {
+		this.potenciaActual = potenciaActual;
 	}
 
 	public int getPotenciaMax() {

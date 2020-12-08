@@ -1,17 +1,23 @@
 package Rocket;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cohete {
 
+	private int potenciaActualCohete = 0;
 	private String code;
-	private HashMap<Integer, Propulsor> propulsores = new HashMap<Integer, Propulsor>();
 	private List<Integer> potenciaPropulsores;
+	private List<Propulsor> propulsores = new ArrayList<>();
+	protected int potenciaMaximaCohete;
+//	private HashMap<Propulsor, Integer> mapaPropulsorPotencia = new HashMap<>();
 
 	public Cohete(String code, List<Integer> potenciaPropulsores) throws Exception {
 		if (code.length() != 8) {
+			throw new Exception();
+		}
+
+		if (potenciaPropulsores.size() == 0) {
 			throw new Exception();
 		}
 
@@ -26,39 +32,73 @@ public class Cohete {
 	}
 
 	public void createPropulsores() {
-		int contador = 0;
 		for (Integer potencia : this.potenciaPropulsores) {
-			Propulsor propulsor = new Propulsor(potencia);
-			propulsores.put(++contador, propulsor);
+			this.potenciaMaximaCohete += potencia;
+			Propulsor newPropulsor = new Propulsor(potencia);
+			this.propulsores.add(newPropulsor);
 		}
 	}
 
 	public String showPropulsores() {
-		String textoPotenciaPropulsores = "";
-		for (Propulsor propulsor : propulsores.values()) {
-			textoPotenciaPropulsores += propulsor.getPotenciaMax() + ",";
+		String textoPotenciaPropulsores = "<html><br>";
+		for (int i = 1; i <= this.propulsores.size(); ++i) {
+			String nombrePropulsor = "Propulsor " + i;
+			textoPotenciaPropulsores += nombrePropulsor + ": " + this.propulsores.get(i - 1).getPotenciaActual()
+					+ "<br><br>";
 		}
 
+		textoPotenciaPropulsores += "</html>";
+
 		// Retorna el texto sin la última coma creada en el loop.
-		return textoPotenciaPropulsores.substring(0, textoPotenciaPropulsores.length() - 1);
+		return textoPotenciaPropulsores;
 	}
 
+	// aumentar la potencia total en 10
 	public void acelerar() {
+		int aumento = 10;
+		while (aumento != 0) {
+			if (potenciaActualCohete >= this.potenciaMaximaCohete) {
+				System.out.println("thas pasao bacalao");
+				break;
+			}
+			for (Propulsor propulsor : this.propulsores) {
+				// un punto por cada propulsor
+				if (propulsor.getPotenciaActual() != propulsor.getPotenciaMax() && aumento > 0) {
+					propulsor.setPotenciaActual(propulsor.getPotenciaActual() + 1);
+					potenciaActualCohete++;
+					aumento--;
+				}
+				
+//				System.out.println(aumento);
+			}
+			System.out.println(potenciaActualCohete);
 
+//			marco.setVisible(true);
+		}
 	}
 
 	public void frenar() {
 
-	}
-
-	public static void main(String[] args) throws Exception {
-
-		Cohete rocket1 = new Cohete("32WESSDS", Arrays.asList(10, 30, 80));
-		Cohete rocket2 = new Cohete("LDSFJA32", Arrays.asList(30, 40, 50, 50, 30, 10));
-
-		System.out.println("Output: \n" + rocket1.getCode() + ": " + rocket1.showPropulsores() + "\n"
-				+ rocket2.getCode() + ": " + rocket2.showPropulsores());
-
+		int decremento = 10;
+		while (decremento != 0) {
+			if (potenciaActualCohete <= 0) {
+				System.out.println("thas colao bacalao");
+				break;
+			}
+			for (Propulsor propulsor : this.propulsores) {
+				// un punto por cada propulsor
+				if (propulsor.getPotenciaActual() != 0 && decremento > 0) {
+					propulsor.setPotenciaActual(propulsor.getPotenciaActual() - 1);
+					potenciaActualCohete--;
+					decremento--;
+				}
+				
+//				System.out.println(aumento);
+			}
+			System.out.println(potenciaActualCohete);
+			
+//			marco.setVisible(true);
+		}
 	}
 
 }
