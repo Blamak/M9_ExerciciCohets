@@ -41,10 +41,23 @@ public class Cohete {
 
 	public String showPropulsores() {
 		String textoPotenciaPropulsores = "<html><br>";
+		
 		for (int i = 1; i <= this.propulsores.size(); ++i) {
 			String nombrePropulsor = "Propulsor " + i;
-			textoPotenciaPropulsores += nombrePropulsor + ": " + this.propulsores.get(i - 1).getPotenciaActual()
-					+ "<br><br>";
+			if (this.propulsores.get(i - 1).getEstadoPropulsor() == 0) {
+				textoPotenciaPropulsores += nombrePropulsor + ": " + this.propulsores.get(i - 1).getPotenciaActual()
+						+ "<br><br>";				
+			}
+			
+			if (this.propulsores.get(i - 1).getEstadoPropulsor() == 1) {
+				textoPotenciaPropulsores += nombrePropulsor + ": " + this.propulsores.get(i - 1).getPotenciaActual()
+						+  "     ACELERANDO" + "<br><br>";					
+			}
+
+			if (this.propulsores.get(i - 1).getEstadoPropulsor() == -1) {
+				textoPotenciaPropulsores += nombrePropulsor + ": " + this.propulsores.get(i - 1).getPotenciaActual()
+						+  "     FRENANDO" + "<br><br>";					
+			}
 		}
 
 		textoPotenciaPropulsores += "</html>";
@@ -66,14 +79,16 @@ public class Cohete {
 				if (propulsor.getPotenciaActual() != propulsor.getPotenciaMax() && aumento > 0) {
 					propulsor.setPotenciaActual(propulsor.getPotenciaActual() + 1);
 					potenciaActualCohete++;
+					propulsor.setEstadoPropulsor(1);
 					aumento--;
+				} 
+				if (propulsor.getPotenciaActual() == propulsor.getPotenciaMax() || aumento == 10) {
+					propulsor.setEstadoPropulsor(0);
 				}
 				
-//				System.out.println(aumento);
 			}
 			System.out.println(potenciaActualCohete);
 
-//			marco.setVisible(true);
 		}
 	}
 
@@ -90,14 +105,16 @@ public class Cohete {
 				if (propulsor.getPotenciaActual() != 0 && decremento > 0) {
 					propulsor.setPotenciaActual(propulsor.getPotenciaActual() - 1);
 					potenciaActualCohete--;
+					propulsor.setEstadoPropulsor(-1);
 					decremento--;
+				} 
+				if (propulsor.getPotenciaActual() == 0 || decremento == 10) {
+					propulsor.setEstadoPropulsor(0);
 				}
 				
-//				System.out.println(aumento);
 			}
 			System.out.println(potenciaActualCohete);
 			
-//			marco.setVisible(true);
 		}
 	}
 

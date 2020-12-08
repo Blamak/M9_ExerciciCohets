@@ -61,17 +61,7 @@ class Marco extends JFrame {
 					laminaPropulsores.removeAll();
 					ponerPropulsores(cohete, laminaPropulsores);
 					laminaPropulsores.validate();
-			        laminaPropulsores.repaint();
-					
-//					add(laminaPropulsores, BorderLayout.NORTH);
-//					laminaPropulsores.;
-//					dispose();
-					
-//					JFrame marco = new Marco(cohete );
-//
-//					marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//					marco.setVisible(true);
+					laminaPropulsores.repaint();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -87,13 +77,7 @@ class Marco extends JFrame {
 					laminaPropulsores.removeAll();
 					ponerPropulsores(cohete, laminaPropulsores);
 					laminaPropulsores.validate();
-			        laminaPropulsores.repaint();
-//					dispose();
-//					JFrame marco = new Marco(cohete);
-//
-//					marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//					marco.setVisible(true);
+					laminaPropulsores.repaint();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
