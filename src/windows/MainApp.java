@@ -1,11 +1,12 @@
 package windows;
 
+import java.awt.BorderLayout;
 import java.util.Arrays;
 import javax.swing.*;
 
 import Rocket.Cohete;
 
-public class MainApp {
+public class MainApp extends JFrame {
 
 	public static void main(String[] args) throws Exception {
 
@@ -14,6 +15,7 @@ public class MainApp {
 		JFrame marco = new Marco(rocket);
 
 		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		marco.setLayout(new BorderLayout());
 
 		marco.setVisible(true);
 	}
