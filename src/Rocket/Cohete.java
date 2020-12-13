@@ -1,14 +1,35 @@
 package Rocket;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cohete {
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import windows.LaminaPropulsores;
+import windows.Marco;
+
+public class Cohete extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int potenciaActualCohete = 0;
 	private String code;
 	private List<Integer> potenciaPropulsores;
 	private List<Propulsor> propulsores = new ArrayList<>();
+	private Marco marco;
+	private JPanel panelPropulsores = new JPanel();
+
 	protected int potenciaMaximaCohete;
 //	private HashMap<Propulsor, Integer> mapaPropulsorPotencia = new HashMap<>();
 
@@ -20,11 +41,48 @@ public class Cohete {
 		if (potenciaPropulsores.size() == 0) {
 			throw new Exception();
 		}
-
+		
 		this.code = code;
 		this.potenciaPropulsores = potenciaPropulsores;
 
 		createPropulsores();
+		
+		setBounds(400, 300, 500, 400);
+		setPreferredSize(new Dimension(600, 450));
+		pack();
+		setTitle("Código Cohete: " + this.getCode());
+		setLayout(new BorderLayout());
+		
+		
+		LaminaPropulsores laminaPropulsores = new LaminaPropulsores(propulsores);
+		
+		this.panelPropulsores = laminaPropulsores.panelContenedor;
+		
+		add(panelPropulsores);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+
+		
+//		this.marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.marco.setVisible(true);
+		
+	
+//		this.marco = new Marco(this);
+//		
+//		LaminaPropulsores laminaProp = new LaminaPropulsores(propulsores);
+//		
+//		this.laminaPropulsores = laminaProp.panelContenedor;
+//		
+//		this.laminaPropulsores.setLayout(new BoxLayout(laminaPropulsores, BoxLayout.PAGE_AXIS));
+//		
+//		this.marco.add();
+		
+		
+		
+		
+		
+//		marco.setLayout(new BorderLayout());
 	}
 
 	public String getCode() {
@@ -37,6 +95,12 @@ public class Cohete {
 			Propulsor newPropulsor = new Propulsor(potencia);
 			this.propulsores.add(newPropulsor);
 		}
+		
+		
+	}
+	
+	public List<Propulsor> getPropulsores() {
+		return this.propulsores;
 	}
 
 	public String showPropulsores() {
@@ -65,6 +129,9 @@ public class Cohete {
 		// Retorna el texto sin la última coma creada en el loop.
 		return textoPotenciaPropulsores;
 	}
+	
+	
+	
 
 	// aumentar la potencia total en 10
 	public void acelerar() {
@@ -81,11 +148,19 @@ public class Cohete {
 					potenciaActualCohete++;
 					propulsor.setEstadoPropulsor(1);
 					aumento--;
+					
+					
+//					this.marco.laminaPropulsores.removeAll();
+//					this.marco.ponerPropulsores(this.marco.laminaPropulsores);
+//					this.marco.laminaPropulsores.validate();
+//					this.marco.laminaPropulsores.repaint();
+//					
 				} 
 				if (propulsor.getPotenciaActual() == propulsor.getPotenciaMax() || aumento == 10) {
 					propulsor.setEstadoPropulsor(0);
 				}
 				
+					
 			}
 			System.out.println(potenciaActualCohete);
 
@@ -107,6 +182,11 @@ public class Cohete {
 					potenciaActualCohete--;
 					propulsor.setEstadoPropulsor(-1);
 					decremento--;
+					
+//					this.marco.laminaPropulsores.removeAll();
+//					this.marco.ponerPropulsores(this.marco.laminaPropulsores);
+//					this.marco.laminaPropulsores.validate();
+//					this.marco.laminaPropulsores.repaint();
 				} 
 				if (propulsor.getPotenciaActual() == 0 || decremento == 10) {
 					propulsor.setEstadoPropulsor(0);

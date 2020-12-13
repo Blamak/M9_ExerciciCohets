@@ -2,114 +2,92 @@ package windows;
 //Marco con lamina y botones
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Rocket.Cohete;
+import Rocket.Propulsor;
 
-class Marco extends JFrame {
+public class Marco extends JFrame {
 
-	protected Cohete cohete;
+	private Cohete cohete;
+	private List<Propulsor> propulsores;
+	
+//	public JPanel laminaPropulsores = new JPanel();
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Marco(Cohete cohete) throws Exception {
 
 		this.cohete = cohete;
+		this.propulsores = cohete.getPropulsores();
 		
+		setBounds(400, 300, 500, 400);
+		setPreferredSize(new Dimension(600, 450));
+		pack();
+		setTitle("Código Cohete: " + this.cohete.getCode());
+		setLayout(new BorderLayout());
+		
+		
+
 		createWindow();
-
-		
-
 	}
-	
+
 	// crear ventana
 	public void createWindow() {
 		setBounds(400, 300, 500, 400);
 		setPreferredSize(new Dimension(600, 450));
 		pack();
-
 		setTitle("Código Cohete: " + this.cohete.getCode());
-//		
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 
-		JPanel laminaPropulsores = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//		JPanel laminaPropulsores = new JPanel();
-//		setContentPane(laminaPropulsores);
-//		laminaPropulsores.setLayout(new BoxLayout(laminaPropulsores, BoxLayout.PAGE_AXIS));
+		LaminaPropulsores laminaPropulsores = new LaminaPropulsores(propulsores);
+		laminaPropulsores.panelContenedor.setLayout(new BoxLayout(laminaPropulsores.panelContenedor, BoxLayout.PAGE_AXIS));
 
-		ponerPropulsores(this.cohete, laminaPropulsores);
-
-		add(laminaPropulsores, BorderLayout.NORTH);
-		
-		
-		
-		
-		
-//		JPanel p = new JPanel();
-//		setContentPane(p);
-//		p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
-//
-//		JPanel panel1 = new JPanel();
-//		panel1.setBackground(Color.RED);
-//		JPanel panel2 = new JPanel();
-//		panel2.setBackground(Color.GREEN);
-//		p.add(panel1);
-//		p.add(panel2);
-//		
-		
-		
-		
-		
-		
+//		ponerPropulsores();
+//		ponerPropulsores();
+		add(laminaPropulsores.panelContenedor, BorderLayout.NORTH);
 
 		JPanel laminaBotones = new JPanel();
-		laminaBotones.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0)); 
+		laminaBotones.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
 		ponerBoton(laminaBotones, "Acelera", new ActionListener() {
-
 
 			public void actionPerformed(ActionEvent evento) {
 				try {
 					cohete.acelerar();
 //					laminaPropulsores.removeAll();
-//					ponerPropulsores(cohete, laminaPropulsores);
+//					actualizaPanelPropulsor(laminaPropulsores);
+//					ponerPropulsores(laminaPropulsores);
 //					laminaPropulsores.validate();
 //					laminaPropulsores.repaint();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
 
-		ponerBoton(laminaBotones, "Frena", new ActionListener() {
+		ponerBoton(laminaBotones, "  Frena  ", new ActionListener() {
 
 			public void actionPerformed(ActionEvent evento) {
 				try {
 					cohete.frenar();
+//					actualizaPanelPropulsor(laminaPropulsores);
 //					laminaPropulsores.removeAll();
-//					ponerPropulsores(cohete, laminaPropulsores);
+//					ponerPropulsores(laminaPropulsores);
 //					laminaPropulsores.validate();
 //					laminaPropulsores.repaint();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -119,37 +97,66 @@ class Marco extends JFrame {
 	}
 
 //ponemos texto de los propulsores
-	public void ponerPropulsores(Cohete rocket, Container c) {
-		JLabel prop1 = new JLabel();		
-		prop1.setBackground(Color.RED);
-		
-		
-		
-		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(Color.GREEN);
-		
-		
-		
-		
-//		JLabel jj = new JLabel();
-//		jj.setBorder(BorderFactory.createTitledBorder("Sub Panel 1"));
-//		
-//		jj.setText("propulsor 1: jsdfjskdflsj sjdfkslfjkslf");
-//
-//		JLabel kk = new JLabel();
-//		kk.setBorder(BorderFactory.createTitledBorder("Sub Panel 2"));
-//		
-//		kk.setText("propulsor 1: jsdfjskdflsj sjdfkslfjkslf");
-		
-		
-		String text = "<html>" + rocket.showPropulsores() + "<br><br></html>";
-		prop1.setText(text);
-		c.add(prop1);
-		c.add(panel2);
-//		add(c, BorderLayout.NORTH);
-	}
+	public void ponerPropulsores(Container c) {
+//	public void ponerPropulsores() {
 
+	
+	
+			for (int i = 0; i < propulsores.size(); i++) {
+//				c.remove(i);
+//				System.out.println(c.getComponentCount());
+//			
+//			System.out.println(propulsor.getPotenciaActual());
+
+//				JPanel panel = propulsores.get(i).createPanel();
+//				panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+//				c.validate();
+//				c.repaint();
+//				
+//				c.add(panel);
+			
+		
+			
+		}
+
+//			String text = "<html>" + rocket.showPropulsores() + "<br><br></html>";
+
+//			c.remove(panel);
+//			c.invalidate();
+//				c.validate();
+//				c.repaint();
+			
+
+		}
+//		c.remove(0);
+
+//		System.out.println(c.getComponentCount());
+
+//		add(c, BorderLayout.NORTH);
+	
+
+	// actualizar paneles de propulsor
+	public void actualizaPanelPropulsor(Container c) {
+		System.out.println("comps" + c.getComponentCount());
+		int contador = 0;
+		System.out.println("ACTPROP");
+		for (Component panel : c.getComponents()) {
+			c.removeAll();
+			
+			System.out.println("Prop " + contador++ + propulsores.get(contador).getPotenciaActual());			
+//			panel = propulsores.get(contador).createPanel();
+			
+			c.validate();
+			c.repaint();
+//			ponerPropulsores(c);
+			
+			contador++;
+			
+		}
+		
+	}
+	
+	
 //ponemos botones
 
 	public void ponerBoton(Container c, String titulo, ActionListener oyente) {
