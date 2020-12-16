@@ -14,9 +14,9 @@ public class Propulsor {
 	private int potenciaActual;
 	private int estadoPropulsor = 0;
 	private static int contador;
-	private int identificador;
+	public int identificador;
 	
-	private JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	public JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	
 	
 	
@@ -37,7 +37,6 @@ public class Propulsor {
 	public JPanel getPanel() {
 		return this.panel;
 	}
-
 
 
 	public int getPotenciaActual() {

@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Rocket.Cohete;
@@ -20,10 +22,12 @@ import Rocket.Propulsor;
 
 public class Marco extends JFrame {
 
+	public JPanel laminaPropulsores = new JPanel();
 	private Cohete cohete;
 	private List<Propulsor> propulsores;
-	
-//	public JPanel laminaPropulsores = new JPanel();
+//
+//	public JPanel panelPropulsores = new JPanel();
+//	public LaminaPropulsores laminaPropulsores;
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,14 +35,19 @@ public class Marco extends JFrame {
 
 		this.cohete = cohete;
 		this.propulsores = cohete.getPropulsores();
-		
-		setBounds(400, 300, 500, 400);
-		setPreferredSize(new Dimension(600, 450));
-		pack();
-		setTitle("Código Cohete: " + this.cohete.getCode());
-		setLayout(new BorderLayout());
-		
-		
+
+//		for (Propulsor propulsor : propulsores) {
+//			this.laminaPropulsores.add(propulsor.getPanel());
+//		}
+//		this.laminaPropulsores = new LaminaPropulsores(this.propulsores);
+
+//		this.laminaPropulsores = new LaminaPropulsores(panelPropulsores, propulsores);
+
+//		setBounds(400, 300, 500, 400);
+//		setPreferredSize(new Dimension(600, 450));
+//		pack();
+//		setTitle("Código Cohete: " + this.cohete.getCode());
+//		setLayout(new BorderLayout());
 
 		createWindow();
 	}
@@ -49,14 +58,22 @@ public class Marco extends JFrame {
 		setPreferredSize(new Dimension(600, 450));
 		pack();
 		setTitle("Código Cohete: " + this.cohete.getCode());
-		setLayout(new BorderLayout());
+//		setLayout(new BorderLayout());
+		laminaPropulsores.setLayout(new BoxLayout(laminaPropulsores, BoxLayout.PAGE_AXIS));
 
-		LaminaPropulsores laminaPropulsores = new LaminaPropulsores(propulsores);
-		laminaPropulsores.panelContenedor.setLayout(new BoxLayout(laminaPropulsores.panelContenedor, BoxLayout.PAGE_AXIS));
+		ponerPropulsores(laminaPropulsores);
+//		
+//		add(panelPropulsores);
 
-//		ponerPropulsores();
-//		ponerPropulsores();
-		add(laminaPropulsores.panelContenedor, BorderLayout.NORTH);
+//		this.panelPropulsores.removeAll();
+//		add(laminaPropulsores);
+
+//		this.laminaPropulsores.panelContenedor.setLayout(new BoxLayout(laminaPropulsores.panelContenedor, BoxLayout.PAGE_AXIS));
+
+//		ponerPropulsores(Container c); 
+
+//		ponerPropulsores(this.laminaPropulsores.panelContenedor);
+//		laminaPropulsores.panelContenedor.removeAll();
 
 		JPanel laminaBotones = new JPanel();
 		laminaBotones.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
@@ -67,10 +84,13 @@ public class Marco extends JFrame {
 				try {
 					cohete.acelerar();
 //					laminaPropulsores.removeAll();
-//					actualizaPanelPropulsor(laminaPropulsores);
 //					ponerPropulsores(laminaPropulsores);
 //					laminaPropulsores.validate();
 //					laminaPropulsores.repaint();
+//					add(laminaPropulsores);
+//					actualizaPanelPropulsor();
+//					actualizaPanelPropulsor(laminaPropulsores);
+//					ponerPropulsores(laminaPropulsores);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,8 +102,7 @@ public class Marco extends JFrame {
 			public void actionPerformed(ActionEvent evento) {
 				try {
 					cohete.frenar();
-//					actualizaPanelPropulsor(laminaPropulsores);
-//					laminaPropulsores.removeAll();
+//					panelPropulsores.removeAll();
 //					ponerPropulsores(laminaPropulsores);
 //					laminaPropulsores.validate();
 //					laminaPropulsores.repaint();
@@ -94,30 +113,56 @@ public class Marco extends JFrame {
 		});
 
 		add(laminaBotones, BorderLayout.SOUTH);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 
 //ponemos texto de los propulsores
 	public void ponerPropulsores(Container c) {
-//	public void ponerPropulsores() {
 
-	
-	
-			for (int i = 0; i < propulsores.size(); i++) {
-//				c.remove(i);
-//				System.out.println(c.getComponentCount());
-//			
-//			System.out.println(propulsor.getPotenciaActual());
+		c.removeAll();
 
-//				JPanel panel = propulsores.get(i).createPanel();
-//				panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-//				c.validate();
-//				c.repaint();
-//				
-//				c.add(panel);
-			
-		
-			
+		for (Propulsor propulsor : propulsores) {
+
+			JPanel panel = propulsor.getPanel();
+			c.add(panel);
 		}
+
+		System.out.println("poenrpro");
+		c.validate();
+		c.repaint();
+		add(c);
+
+	}
+
+	
+	public void ponerPropulsores2(Container c) {
+		
+		c.removeAll();
+		
+		for (Propulsor propulsor : propulsores) {
+			
+			JPanel panel = propulsor.getPanel();
+			c.add(panel);
+		}
+		
+		System.out.println("poenrpro222");
+		c.validate();
+		c.repaint();
+		add(c);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //			String text = "<html>" + rocket.showPropulsores() + "<br><br></html>";
 
@@ -125,38 +170,39 @@ public class Marco extends JFrame {
 //			c.invalidate();
 //				c.validate();
 //				c.repaint();
-			
 
-		}
+//		}
 //		c.remove(0);
 
 //		System.out.println(c.getComponentCount());
 
 //		add(c, BorderLayout.NORTH);
-	
 
 	// actualizar paneles de propulsor
-	public void actualizaPanelPropulsor(Container c) {
-		System.out.println("comps" + c.getComponentCount());
-		int contador = 0;
-		System.out.println("ACTPROP");
-		for (Component panel : c.getComponents()) {
-			c.removeAll();
-			
-			System.out.println("Prop " + contador++ + propulsores.get(contador).getPotenciaActual());			
-//			panel = propulsores.get(contador).createPanel();
-			
-			c.validate();
-			c.repaint();
-//			ponerPropulsores(c);
-			
-			contador++;
-			
+	public void actualizaPanelPropulsor() {
+
+		for (Propulsor propulsor : propulsores) {
+
+//			propulsor.refreshPanel();
+
+//			c.remove(i);
+//			System.out.println(c.getComponentCount());
+//	add(this.laminaPropulsores.panelContenedor, BorderLayout.NORTH);
+//		
+//		System.out.println(propulsor.getPotenciaActual());
+
+//			JPanel panel = propulsores.get(i).getPanel();
+//			panel.getp
+//			c.validate();
+//			c.repaint();
+//			
+//			this.panelPropulsores.add(panel);
 		}
-		
+
+		System.out.println("actututut");
+
 	}
-	
-	
+
 //ponemos botones
 
 	public void ponerBoton(Container c, String titulo, ActionListener oyente) {
