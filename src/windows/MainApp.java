@@ -1,31 +1,7 @@
 package windows;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
-import javax.swing.*;
-
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import Rocket.Cohete;
-import Rocket.Propulsor;
-
 import Rocket.Cohete;
 
 public class MainApp extends JFrame {
@@ -37,7 +13,7 @@ public class MainApp extends JFrame {
 
 	public static void main(String[] args) throws Exception {
 
-		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(50,80,30, 40, 50, 50));
+		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(50,80,30, 40, 50, 70));
 //		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(50));
 		
 		
@@ -45,7 +21,7 @@ public class MainApp extends JFrame {
 		
 //		rocket.rocketWindow();
 		
-//		Marco marco = new Marco(rocket);
+		Marco marco = new Marco(rocket);
 
 		
 //		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

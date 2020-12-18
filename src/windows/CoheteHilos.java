@@ -1,81 +1,103 @@
 package windows;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JPanel;
 
 import Rocket.Cohete;
 import Rocket.Propulsor;
 
 public class CoheteHilos implements Runnable {
 
-	private List<Propulsor> propulsores = new ArrayList<>();
-//	int potenciaActualCohete;
-	int aumento;
-	Marco marco;
-	JPanel laminaPropulsores;
-	int potenciaMaximaCohete;
+	private List<Propulsor> propulsores;
+	private int variacionPotencia;
 
-	public CoheteHilos(List<Propulsor> propulsores, int potenciaMaximaCohete, int aumento) {
+	public CoheteHilos(List<Propulsor> propulsores, int variacionPotencia) {
 		this.propulsores = propulsores;
-//		this.potenciaActualCohete = potenciaActualCohete;
-		this.aumento = aumento;
-//		this.marco = marco;
-//		this.laminaPropulsores = laminaPropulsores;
-		this.potenciaMaximaCohete = potenciaMaximaCohete;
+		this.variacionPotencia = variacionPotencia;
 	}
-
-//	public CoheteHilos(List<Propulsor> propulsores, int potenciaActualCohete, Marco marco, JPanel laminaPropulsores) {
-//
-//	}
 
 	public void run() {
-//		int aumento = 10;
-//		while (aumento != 0) {
-//			if (potenciaActualCohete >= this.potenciaMaximaCohete) {
-//				System.out.println("thas pasao bacalao");
-//				break;
-//			}
-		
-		System.out.println("in run");
-		for (Propulsor propulsor : this.propulsores) {
-			// un punto por cada propulsor
+		int numPropulsores = this.propulsores.size();
+		int factorVariacion = Math.abs(variacionPotencia);
+		int factorIndex = factorVariacion;
 
-//			this.panel = propulsor.getPanel();
-			
-			
-			if (propulsor.getPotenciaActual() != propulsor.getPotenciaMax() && aumento > 0) {
-				propulsor.setPotenciaActual(propulsor.getPotenciaActual() + 1);
-				Cohete.potenciaActualCohete++;
-				propulsor.setEstadoPropulsor(1);
-				this.aumento--;
+		int diferencia = factorVariacion - numPropulsores;
+		int factorMovimiento = variacionPotencia / factorVariacion;
+		int propulsorIndex;
+		Propulsor propulsor;
 
-//				this.marco.ponerPropulsores2(this.laminaPropulsores);
-//				this.laminaPropulsores.validate();
-//				this.laminaPropulsores.repaint();
-//				
-				System.out.println("in forloop run:" + Cohete.potenciaActualCohete);
-//				
-				
-				
-				
-//				propulsor.refreshPanel();
-//				this.marco.remove(panelPropulsores);
+		while (factorVariacion > 0) {
 
-//				this.marco.ponerPropulsores();
-//				this.laminaPropulsores = new LaminaPropulsores(propulsores);
+			System.out.println("fakindex: " + factorIndex);
+
+			if (factorIndex > diferencia) {
+				propulsorIndex = Math.abs(Math.abs(factorIndex) - (numPropulsores + diferencia));
+				propulsor = this.propulsores.get(propulsorIndex);
+			} else {
+				propulsorIndex = Math.abs(Math.abs(factorIndex) - diferencia);
+				propulsor = this.propulsores.get(propulsorIndex);
+
 			}
-//			if (propulsor.getPotenciaActual() == propulsor.getPotenciaMax() || aumento == 10) {
-//				propulsor.setEstadoPropulsor(0);
-//			}
-			
+
+			if (((propulsor.getPotenciaActual() + factorMovimiento) < propulsor.getPotenciaMax())
+					&& ((propulsor.getPotenciaActual() + factorMovimiento) >= 0)) {
+//				System.out.println("2nd con: " + (propulsor.getPotenciaActual() + factorMovimiento));
+				propulsor.setPotenciaActual(propulsor.getPotenciaActual() + factorMovimiento);
+				Cohete.potenciaActualCohete += factorMovimiento;
+				propulsor.refrehPanel();
+				System.out.println(Cohete.potenciaActualCohete);
+				factorVariacion -= 1;
+				factorIndex -= 1;
+
+				if (factorIndex == 0) {
+					factorIndex = 10;
+				}
+
+			} else {
+
+				if (Cohete.potenciaActualCohete == 0 || Cohete.potenciaActualCohete >= Cohete.potenciaMaximaCohete) {
+					break;
+				}
+				
+				factorIndex -= 1;
+				if (factorIndex == 0) {
+					factorIndex = 10;
+				}
+
+			}
 			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ie) {
-				// do nothing
+				Thread.sleep(100);
+
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
+
 		}
 	}
+
 }
-//}
+
+//		int aumento = 10;
+//		while (variacion != 0) {
+//			for (Propulsor propulsor : this.propulsores) {
+//
+//				// condiciones para romper la iteracion:
+//				if (variacion == 0) {
+//					break;
+//				}
+//
+//				if (Cohete.potenciaActualCohete + (Math.abs(variacion) - Math.abs(variacion - 1)) < 0) {
+//					System.out.println("negata");
+//					variacion = 0;
+//					break;
+//				}
+//
+//				if ( 
+//						!((propulsor.getPotenciaActual() >= propulsor.getPotenciaMax()) && variacion > 0)
+//						
+//						&& !((propulsor.getPotenciaActual() <= 0) && variacion < 0)
+//					)
+//				{
+//		propulsor.setPotenciaActual(propulsor.getPotenciaActual() + (Math.abs(variacion) - Math.abs(variacion - 1)));
+//		Cohete.potenciaActualCohete += Math.abs(variacion) - Math.abs(variacion - 1);
+
+//		variacion -= Math.abs(variacion) - Math.abs(variacion - 1);

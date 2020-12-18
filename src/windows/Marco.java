@@ -129,7 +129,7 @@ public class Marco extends JFrame {
 			c.add(panel);
 		}
 
-		System.out.println("poenrpro");
+//		System.out.println("poenrpro");
 		c.validate();
 		c.repaint();
 		add(c);
