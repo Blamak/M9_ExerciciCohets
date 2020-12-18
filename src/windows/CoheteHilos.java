@@ -38,7 +38,7 @@ public class CoheteHilos implements Runnable {
 
 			}
 
-			if (((propulsor.getPotenciaActual() + factorMovimiento) < propulsor.getPotenciaMax())
+			if (((propulsor.getPotenciaActual() + factorMovimiento) <= propulsor.getPotenciaMax())
 					&& ((propulsor.getPotenciaActual() + factorMovimiento) >= 0)) {
 //				System.out.println("2nd con: " + (propulsor.getPotenciaActual() + factorMovimiento));
 				propulsor.setPotenciaActual(propulsor.getPotenciaActual() + factorMovimiento);
