@@ -27,8 +27,11 @@ public class CoheteHilos implements Runnable {
 
 		while (factorVariacion > 0) {
 
-			System.out.println("fakindex: " + factorIndex);
+			if (Cohete.potenciaActualCohete >= Cohete.potenciaMaximaCohete) {
+				break;
+			}
 
+			System.out.println(factorIndex);
 			if (factorIndex > diferencia) {
 				propulsorIndex = Math.abs(Math.abs(factorIndex) - (numPropulsores + diferencia));
 				propulsor = this.propulsores.get(propulsorIndex);
@@ -38,13 +41,13 @@ public class CoheteHilos implements Runnable {
 
 			}
 
-			if (((propulsor.getPotenciaActual() + factorMovimiento) <= propulsor.getPotenciaMax())
+			if (((propulsor.getPotenciaActual()) < propulsor.getPotenciaMax())
 					&& ((propulsor.getPotenciaActual() + factorMovimiento) >= 0)) {
 //				System.out.println("2nd con: " + (propulsor.getPotenciaActual() + factorMovimiento));
 				propulsor.setPotenciaActual(propulsor.getPotenciaActual() + factorMovimiento);
 				Cohete.potenciaActualCohete += factorMovimiento;
-				propulsor.refrehPanel();
 				System.out.println(Cohete.potenciaActualCohete);
+				propulsor.refrehPanel();
 				factorVariacion -= 1;
 				factorIndex -= 1;
 
@@ -54,24 +57,23 @@ public class CoheteHilos implements Runnable {
 
 			} else {
 
-				if (Cohete.potenciaActualCohete == 0 || Cohete.potenciaActualCohete >= Cohete.potenciaMaximaCohete) {
-					break;
-				}
-				
-				factorIndex -= 1;
+//				this.propulsores.remove(propulsor);
+				numPropulsores -= 1;
+
+//				factorIndex -= 2;
 				if (factorIndex == 0) {
 					factorIndex = 10;
 				}
-
 			}
+
 			try {
 				Thread.sleep(100);
 
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-
 		}
+
 	}
 
 }
