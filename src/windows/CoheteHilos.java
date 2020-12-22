@@ -5,101 +5,64 @@ import java.util.List;
 import Rocket.Cohete;
 import Rocket.Propulsor;
 
-public class CoheteHilos implements Runnable {
+public class CoheteHilos extends Thread {
 
-	private List<Propulsor> propulsores;
-	private int variacionPotencia;
+	List<Propulsor> propulsores;
+	int numPropulsores;
+	int suma_o_resta;
 
-	public CoheteHilos(List<Propulsor> propulsores, int variacionPotencia) {
+	public CoheteHilos(List<Propulsor> propulsores, int numPropulsores, int suma_o_resta) {
 		this.propulsores = propulsores;
-		this.variacionPotencia = variacionPotencia;
+		this.numPropulsores = numPropulsores;
+		this.suma_o_resta = suma_o_resta;
+
 	}
 
 	public void run() {
-		int numPropulsores = this.propulsores.size();
-		int factorVariacion = Math.abs(variacionPotencia);
-		int factorIndex = factorVariacion;
 
-		int diferencia = factorVariacion - numPropulsores;
-		int factorMovimiento = variacionPotencia / factorVariacion;
-		int propulsorIndex;
-		Propulsor propulsor;
+		try {
 
-		while (factorVariacion > 0) {
+			Propulsor propulsorHilo;
+			int indicePropulsor;
+			int propulsorPotenciaActual = 0;
+			int propulsorPotenciaMaxima;
 
-			if (Cohete.potenciaActualCohete >= Cohete.potenciaMaximaCohete) {
-				break;
-			}
-
-			System.out.println(factorIndex);
-			if (factorIndex > diferencia) {
-				propulsorIndex = Math.abs(Math.abs(factorIndex) - (numPropulsores + diferencia));
-				propulsor = this.propulsores.get(propulsorIndex);
-			} else {
-				propulsorIndex = Math.abs(Math.abs(factorIndex) - diferencia);
-				propulsor = this.propulsores.get(propulsorIndex);
-
-			}
-
-			if (((propulsor.getPotenciaActual()) < propulsor.getPotenciaMax())
-					&& ((propulsor.getPotenciaActual() + factorMovimiento) >= 0)) {
-//				System.out.println("2nd con: " + (propulsor.getPotenciaActual() + factorMovimiento));
-				propulsor.setPotenciaActual(propulsor.getPotenciaActual() + factorMovimiento);
-				Cohete.potenciaActualCohete += factorMovimiento;
-				System.out.println(Cohete.potenciaActualCohete);
-				propulsor.refrehPanel();
-				factorVariacion -= 1;
-				factorIndex -= 1;
-
-				if (factorIndex == 0) {
-					factorIndex = 10;
+			for (int i = 0; i < 10; i++) {
+				
+				if ( (Cohete.potenciaActualCohete == 0 && this.suma_o_resta == -1) || Cohete.potenciaActualCohete == Cohete.potenciaMaximaCohete) {
+					break;
 				}
 
-			} else {
+				indicePropulsor = (int) ((numPropulsores) * Math.random());
+				propulsorHilo = this.propulsores.get(indicePropulsor);
+				propulsorPotenciaActual = propulsorHilo.getPotenciaActual();
+				propulsorPotenciaMaxima = propulsorHilo.getPotenciaMax();
 
-//				this.propulsores.remove(propulsor);
-				numPropulsores -= 1;
-
-//				factorIndex -= 2;
-				if (factorIndex == 0) {
-					factorIndex = 10;
+				switch (this.suma_o_resta) {
+				case 1:
+					if (propulsorPotenciaActual == propulsorPotenciaMaxima) {
+						i--;
+						break;
+					} else {
+						propulsorHilo.aumentar();
+						break;
+					}
+				case -1:
+					if (propulsorPotenciaActual == 0) {
+						i--;
+						break;
+					} else {
+						propulsorHilo.disminuir();
+						break;
+					}
 				}
-			}
 
-			try {
 				Thread.sleep(100);
-
-			} catch (Exception e) {
-				// TODO: handle exception
 			}
-		}
 
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
-
-//		int aumento = 10;
-//		while (variacion != 0) {
-//			for (Propulsor propulsor : this.propulsores) {
-//
-//				// condiciones para romper la iteracion:
-//				if (variacion == 0) {
-//					break;
-//				}
-//
-//				if (Cohete.potenciaActualCohete + (Math.abs(variacion) - Math.abs(variacion - 1)) < 0) {
-//					System.out.println("negata");
-//					variacion = 0;
-//					break;
-//				}
-//
-//				if ( 
-//						!((propulsor.getPotenciaActual() >= propulsor.getPotenciaMax()) && variacion > 0)
-//						
-//						&& !((propulsor.getPotenciaActual() <= 0) && variacion < 0)
-//					)
-//				{
-//		propulsor.setPotenciaActual(propulsor.getPotenciaActual() + (Math.abs(variacion) - Math.abs(variacion - 1)));
-//		Cohete.potenciaActualCohete += Math.abs(variacion) - Math.abs(variacion - 1);
-
-//		variacion -= Math.abs(variacion) - Math.abs(variacion - 1);
