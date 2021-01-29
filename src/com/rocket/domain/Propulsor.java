@@ -1,4 +1,4 @@
-package Rocket;
+package com.rocket.domain;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -13,10 +13,10 @@ public class Propulsor extends Thread {
 
 	private int potenciaMax;
 
+
 	private int potenciaActual;
-	private int estadoPropulsor = 0;
-	private static int contador;
 	public int identificador;
+	private static int contador;
 
 	public JPanel panelContenedor = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	public JPanel panelPropulsor = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -30,21 +30,20 @@ public class Propulsor extends Thread {
 
 		panelPropulsor.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelPropulsor.setPreferredSize(new Dimension(350, 50));
-		panelPropulsor.setMaximumSize(new Dimension(350, 50)); // set max = pref
+		panelPropulsor.setMaximumSize(new Dimension(350, 50));
 
 		JLabel label = new JLabel();
-		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (identificador)));
+		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (this.identificador)));
 		label.setText(" Potencia máxima: " + Integer.toString(this.getPotenciaMax()) + "     Potencia actual: "
 				+ this.getPotenciaActual() + " ");
 		this.panelPropulsor.add(label);
 		this.panelContenedor.add(panelPropulsor);
 	}
 
-	public void refrehPanel() {
-
+	public void refreshPanel() {
 		this.panelPropulsor.removeAll();
 		JLabel label = new JLabel();
-		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (identificador)));
+		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (this.identificador)));
 		label.setText(" Potencia máxima: " + Integer.toString(this.potenciaMax) + "     Potencia actual: "
 				+ this.potenciaActual + " ");
 		this.panelPropulsor.add(label);
@@ -52,19 +51,18 @@ public class Propulsor extends Thread {
 		this.panelContenedor.repaint();
 
 	}
-	
-	public void aumentar() {
-		
-		
-			this.potenciaActual++;
-			Cohete.potenciaActualCohete++;
-			refrehPanel();
+
+	public void aumentar() throws InterruptedException {
+		Cohete.potenciaActualCohete++;
+		this.potenciaActual++;
+		refreshPanel();
 	}
-	
-	public void disminuir() {
-		this.potenciaActual--;
+
+	public void disminuir() throws InterruptedException {
 		Cohete.potenciaActualCohete--;
-		refrehPanel();
+		this.potenciaActual--;
+
+		refreshPanel();
 	}
 
 	public JPanel getPanel() {
@@ -76,24 +74,8 @@ public class Propulsor extends Thread {
 		return this.potenciaActual;
 	}
 
-	public void setPotenciaActual(int potenciaActual) {
-		this.potenciaActual = potenciaActual;
-	}
-
 	public int getPotenciaMax() {
 		return this.potenciaMax;
-	}
-
-	public void setPotenciaMax(int potenciaMax) {
-		this.potenciaMax = potenciaMax;
-	}
-
-	public int getEstadoPropulsor() {
-		return this.estadoPropulsor;
-	}
-
-	public void setEstadoPropulsor(int estadoPropulsor) {
-		this.estadoPropulsor = estadoPropulsor;
 	}
 
 }

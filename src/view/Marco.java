@@ -1,4 +1,4 @@
-package windows;
+package view;
 //Marco con lamina y botones
 
 import java.awt.BorderLayout;
@@ -14,31 +14,42 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Rocket.Cohete;
-import Rocket.Propulsor;
+import com.rocket.domain.Cohete;
+import com.rocket.domain.Propulsor;
 
 public class Marco extends JFrame {
 
-	public JPanel laminaPropulsores = new JPanel();
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel laminaPropulsores = new JPanel();
 	private Cohete cohete;
 	private List<Propulsor> propulsores;
 
-	private static final long serialVersionUID = 1L;
 
-	public Marco(Cohete cohete) throws Exception {
+	private Marco(Cohete cohete) throws Exception {
 
 		this.cohete = cohete;
 		this.propulsores = cohete.getPropulsores();
 
 		createWindow();
 	}
+	
+
+	private static Marco instance = null;
+	public static Marco getInstance(Cohete cohete) throws Exception {
+		if (instance == null) {
+			instance = new Marco(cohete);
+		}
+		return instance;
+	}
+	
 
 	// crear ventana
 	public void createWindow() {
 		setBounds(400, 300, 500, 400);
 		setPreferredSize(new Dimension(600, 450));
 		pack();
-		setTitle("Código Cohete: " + this.cohete.getCode());
+		setTitle("Código Cohete: " + this.cohete.getCodigo());
 
 		laminaPropulsores.setLayout(new BoxLayout(laminaPropulsores, BoxLayout.PAGE_AXIS));
 
@@ -51,6 +62,7 @@ public class Marco extends JFrame {
 
 			public void actionPerformed(ActionEvent evento) {
 				try {
+					
 					cohete.acelerar();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -93,22 +105,6 @@ public class Marco extends JFrame {
 	}
 
 	
-	public void ponerPropulsores2(Container c) {
-		
-		c.removeAll();
-		
-		for (Propulsor propulsor : propulsores) {
-			
-			JPanel panel = propulsor.getPanel();
-			c.add(panel);
-		}
-		
-		System.out.println("poenrpro222");
-		c.validate();
-		c.repaint();
-		add(c);
-		
-	}
 	
 	
 //ponemos botones

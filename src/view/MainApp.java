@@ -1,8 +1,9 @@
-package windows;
+package view;
 
 import java.util.Arrays;
 import javax.swing.JFrame;
-import Rocket.Cohete;
+
+import com.rocket.domain.Cohete;
 
 public class MainApp extends JFrame {
 
@@ -11,11 +12,12 @@ public class MainApp extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Exception {
 
-		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(50,80,30, 40, 50, 70));
+		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(10, 5, 15, 20, 10));
 		
-		Marco marco = new Marco(rocket);
+		Marco marco = Marco.getInstance(rocket);
 
 	}
 

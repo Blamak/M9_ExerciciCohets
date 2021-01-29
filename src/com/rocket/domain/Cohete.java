@@ -1,46 +1,38 @@
-package Rocket;
+package com.rocket.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import windows.CoheteHilos;
+import view.CoheteHilos;
 
 public class Cohete {
 
 	public static int potenciaActualCohete = 0;
-	private String code;
+	public static int potenciaMaximaCohete;
+	private String codigo;
 	private List<Integer> potenciaPropulsores;
 	private List<Propulsor> propulsores = new ArrayList<>();
-	public static int potenciaMaximaCohete;
+	private int numPropulsores;
 
-	public Cohete(String code, List<Integer> potenciaPropulsores) throws Exception {
-		if (code.length() != 8) {
+	public Cohete(String codigo, List<Integer> potenciaPropulsores) throws Exception {
+		if (codigo.length() != 8) 
 			throw new Exception();
-		}
-
-		if (potenciaPropulsores.size() == 0) {
+		
+		if (potenciaPropulsores.size() == 0)
 			throw new Exception();
-		}
-
-		this.code = code;
+		
+		this.codigo = codigo;
 		this.potenciaPropulsores = potenciaPropulsores;
-
-		for (Integer potencia : potenciaPropulsores) {
-			Cohete.potenciaMaximaCohete += potencia;
-		}
-
+		
 		createPropulsores();
-
+		this.numPropulsores = this.propulsores.size();
 	}
 
-	public String getCode() {
-
-		return this.code;
-
+	public String getCodigo() {
+		return this.codigo;
 	}
 
 	public void createPropulsores() {
-
 		for (Integer potencia : this.potenciaPropulsores) {
 			Cohete.potenciaMaximaCohete += potencia;
 			Propulsor newPropulsor = new Propulsor(potencia);
@@ -50,30 +42,17 @@ public class Cohete {
 	}
 
 	public List<Propulsor> getPropulsores() {
-
 		return this.propulsores;
-
 	}
 
 	public void acelerar() {
-		
-			
-			int numPropulsores = this.propulsores.size();
-			
-			Runnable r = new CoheteHilos(this.propulsores, numPropulsores, 1);
-			
+			Runnable r = new CoheteHilos(this.propulsores, this.numPropulsores, 1);
 			Thread t = new Thread(r);
 			t.start();
-
 	}
 
 	public void frenar() {
-		
-			
-			int numPropulsores = this.propulsores.size();
-			
-			Runnable r = new CoheteHilos(this.propulsores, numPropulsores, -1);
-			
+			Runnable r = new CoheteHilos(this.propulsores, this.numPropulsores, -1);
 			Thread t = new Thread(r);
 			t.start();
 	}
