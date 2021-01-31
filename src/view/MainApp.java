@@ -15,8 +15,7 @@ public class MainApp extends JFrame {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws Exception {
 
-		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(10, 5, 15, 20, 10));
-		
+		Cohete rocket = new Cohete("LDSFJA32", Arrays.asList(10, 5, 15, 20, 10, 15));
 		Marco marco = Marco.getInstance(rocket);
 
 	}

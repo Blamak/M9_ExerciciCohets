@@ -12,10 +12,8 @@ import javax.swing.JPanel;
 public class Propulsor extends Thread {
 
 	private int potenciaMax;
-
-
 	private int potenciaActual;
-	public int identificador;
+	private int identificador;
 	private static int contador;
 
 	public JPanel panelContenedor = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -53,16 +51,17 @@ public class Propulsor extends Thread {
 	}
 
 	public void aumentar() throws InterruptedException {
-		Cohete.potenciaActualCohete++;
-		this.potenciaActual++;
-		refreshPanel();
+		if ( !(this.potenciaActual >= this.potenciaMax) ) {
+			this.potenciaActual++;
+			refreshPanel();
+		}
 	}
 
 	public void disminuir() throws InterruptedException {
-		Cohete.potenciaActualCohete--;
-		this.potenciaActual--;
-
-		refreshPanel();
+		if ( !(this.potenciaActual <= 0) ) {
+			this.potenciaActual--;
+			refreshPanel();
+		}
 	}
 
 	public JPanel getPanel() {

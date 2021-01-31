@@ -20,11 +20,10 @@ import com.rocket.domain.Propulsor;
 public class Marco extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JPanel laminaPropulsores = new JPanel();
 	private Cohete cohete;
 	private List<Propulsor> propulsores;
-
 
 	private Marco(Cohete cohete) throws Exception {
 
@@ -33,16 +32,15 @@ public class Marco extends JFrame {
 
 		createWindow();
 	}
-	
 
 	private static Marco instance = null;
+
 	public static Marco getInstance(Cohete cohete) throws Exception {
 		if (instance == null) {
 			instance = new Marco(cohete);
 		}
 		return instance;
 	}
-	
 
 	// crear ventana
 	public void createWindow() {
@@ -62,7 +60,6 @@ public class Marco extends JFrame {
 
 			public void actionPerformed(ActionEvent evento) {
 				try {
-					
 					cohete.acelerar();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,11 +86,9 @@ public class Marco extends JFrame {
 
 //ponemos texto de los propulsores
 	public void ponerPropulsores(Container c) {
-
 		c.removeAll();
 
 		for (Propulsor propulsor : propulsores) {
-
 			JPanel panel = propulsor.getPanel();
 			c.add(panel);
 		}
@@ -104,19 +99,11 @@ public class Marco extends JFrame {
 
 	}
 
-	
-	
-	
 //ponemos botones
-
 	public void ponerBoton(Container c, String titulo, ActionListener oyente) {
-
 		JButton boton = new JButton(titulo);
-
 		c.add(boton);
-
 		boton.addActionListener(oyente);
-
 	}
 
 }
