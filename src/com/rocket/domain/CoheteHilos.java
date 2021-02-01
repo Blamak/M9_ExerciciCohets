@@ -21,6 +21,13 @@ public class CoheteHilos extends Thread {
 	private int acelera_o_frena; // 1 acelera, -1 frena
 	private int indicePropulsor = -1;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param propulsores, todos los propulsores del cohete
+	 * @param numPropulsores, cantidad de propulsores que tiene el cohete
+	 * @param acelera_o_frena, valor 1 para acelerar, -1 para frenar
+	 */
 	public CoheteHilos(List<Propulsor> propulsores, int numPropulsores, int acelera_o_frena) {
 		this.propulsores = propulsores;
 		this.acelera_o_frena = acelera_o_frena;

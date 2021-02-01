@@ -77,7 +77,7 @@ public class Propulsor extends Thread {
 	 * Método para evitar duplicidad de código en los métodos init() y refreshPanel()
 	 * 
 	 * @param panelContainer, contenedor al que insertar la etiqueta con el identificador
-	 * del propulsor y sus potencias actual y máxima
+	 *                        del propulsor y sus potencias actual y máxima
 	 */
 	private void createPanelPropulsor(JPanel panelContainer) {
 		JLabel label = new JLabel();
