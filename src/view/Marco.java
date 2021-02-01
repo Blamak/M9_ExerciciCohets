@@ -19,9 +19,10 @@ import java.awt.BorderLayout;
 
 /**
  * Clase que crea una ventana para mostrar los propulsores del cohete
- * y los botones de aceleración y frenado
+ * y los botones de aceleración y frenado. Hereda de JFrame
  * 
- * Contiene un objeto de tipo Cohete y una lista de sus propulsores
+ * Contiene un objeto de tipo Cohete y una lista de sus propulsores,
+ * además de un atributo de tipo JPanel, lámina para mostrar los propulsores
  * 
  * Se implementa con el patrón Singleton, permitiendo crear un único objeto
  *
@@ -106,35 +107,36 @@ public class Marco extends JFrame {
 	}
 
 	/**
-	 * Método que crea un panel para cada propulsor y los añade a la lámina
+	 * Crea una lámina para cada propulsor y los añade a la lámina con todos propulsores
 	 * 
-	 * @param c, objeto de tipo Container para insertar la lámina de propulsores
+	 * @param contenedor, objeto de tipo Container con los paneles de cada propulsor
+	 * incrustados en su interior 
 	 */
-	public void ponerPropulsores(Container c) {
-		c.removeAll();
+	public void ponerPropulsores(Container contenedor) {
+		contenedor.removeAll();
 
 		for (Propulsor propulsor : propulsores) {
 			JPanel panel = propulsor.getPanel();
-			c.add(panel);
+			contenedor.add(panel);
 		}
 
-		c.validate();
-		c.repaint();
-		add(c);
+		contenedor.validate();
+		contenedor.repaint();
+		add(contenedor);
 
 	}
 
 	/**
-	 * Método que crea los botones de frenar y acelerar
+	 * Crea los botones de frenar y acelerar con sus respectivos listeners
 	 * 
-	 * @param c, objeto de tipo Container para insertar la lámina de propulsores
+	 * @param contenedor, objeto de tipo Container que incorpora los botones
 	 * @param titulo, texto del botón
 	 * @param oyente, listener que ejecutará los métodos de la clase Cohete,
 	 * 				  acelerar() o frenar (), al pulsar el botón correspondiente
 	 */
-	public void ponerBoton(Container c, String titulo, ActionListener oyente) {
+	public void ponerBoton(Container contenedor, String titulo, ActionListener oyente) {
 		JButton boton = new JButton(titulo);
-		c.add(boton);
+		contenedor.add(boton);
 		boton.addActionListener(oyente);
 	}
 
