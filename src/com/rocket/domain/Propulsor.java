@@ -22,29 +22,31 @@ public class Propulsor extends Thread {
 	public Propulsor(int potenciaMax) {
 		this.potenciaMax = potenciaMax;
 		this.identificador = ++contador;
-
+		init();
+	}
+	
+	private void init() { 
 		this.panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.PAGE_AXIS));
 		this.panelContenedor.setPreferredSize(new Dimension(500, 40));
-
-		panelPropulsor.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panelPropulsor.setPreferredSize(new Dimension(350, 50));
-		panelPropulsor.setMaximumSize(new Dimension(350, 50));
-
-		JLabel label = new JLabel();
-		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (this.identificador)));
-		label.setText(" Potencia máxima: " + Integer.toString(this.getPotenciaMax()) + "     Potencia actual: "
-				+ this.getPotenciaActual() + " ");
-		this.panelPropulsor.add(label);
-		this.panelContenedor.add(panelPropulsor);
+		this.panelPropulsor.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.panelPropulsor.setPreferredSize(new Dimension(350, 50));
+		this.panelPropulsor.setMaximumSize(new Dimension(350, 50));
+		
+		createPanelPropulsor(this.panelContenedor);
+		this.panelContenedor.add(this.panelPropulsor);
 	}
-
-	public void refreshPanel() {
-		this.panelPropulsor.removeAll();
+	
+	private void createPanelPropulsor(JPanel panelContainer) {
 		JLabel label = new JLabel();
 		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (this.identificador)));
 		label.setText(" Potencia máxima: " + Integer.toString(this.potenciaMax) + "     Potencia actual: "
 				+ this.potenciaActual + " ");
 		this.panelPropulsor.add(label);
+	}
+
+	private void refreshPanel() {
+		this.panelPropulsor.removeAll();
+		createPanelPropulsor(this.panelContenedor);
 		this.panelContenedor.validate();
 		this.panelContenedor.repaint();
 
@@ -68,13 +70,4 @@ public class Propulsor extends Thread {
 		return this.panelContenedor;
 
 	}
-
-	public int getPotenciaActual() {
-		return this.potenciaActual;
-	}
-
-	public int getPotenciaMax() {
-		return this.potenciaMax;
-	}
-
 }
