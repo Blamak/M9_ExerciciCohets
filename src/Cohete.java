@@ -21,15 +21,22 @@ public class Cohete {
 		return this.numPropulsores;
 	}
 
-	public static void main(String[] args) throws Exception {
-		Cohete rocket1 = new Cohete("xxxxxxxx", 3);
-		Cohete rocket2 = new Cohete("LDSFJA32", 6);
+	public static void main(String[] args) {
+		Cohete rocket1;
+		Cohete rocket2;
+		try {
+			rocket1 = new Cohete("LDSFJA32", 6);
+			System.out.println("Output: \n" + rocket1.getCode() + ": " + rocket1.getNumPropulsores() + " propulsores");
 
-		System.out.println(
-				"Output: \n" 
-				+ rocket1.getCode() + ": " + rocket1.getNumPropulsores() + " propulsores\n"
-				+ rocket2.getCode() + ": " + rocket2.getNumPropulsores() + " propulsores"
-		);
+			rocket2 = new Cohete("x", 3);
+			System.out.println("Output: \n" + rocket2.getCode() + ": " + rocket2.getNumPropulsores() + " propulsores\n");
+			
+		} catch (Exception e) {
+			System.err.println("Error, código debe tener 8 dígitos.");
+		}
+		
+		
+
 
 	}
 
