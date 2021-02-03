@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  *     que contiene todos los propulsores (clase Marco, laminaPropulsores) 
  *
  */
-public class Propulsor extends Thread {
+public class Propulsor {
 
 	private int potenciaMax;
 	private int potenciaActual;
@@ -47,7 +47,7 @@ public class Propulsor extends Thread {
 	}
 	
 	/**
-	 * Mediante los atributos de la clase construye la jerarquía de láminas que 
+	 * Mediante los atributos de tipo JPanel construye la jerarquía de láminas que 
 	 * formarán la vista del propulsor
 	 *
 	 */

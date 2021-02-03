@@ -19,7 +19,7 @@ public class CoheteHilos extends Thread {
 
 	private List<Propulsor> propulsores;
 	private int acelera_o_frena; // 1 acelera, -1 frena
-	private int indicePropulsor = -1;
+	private int indicePropulsor = -1; // Cubre la posibilidad de un solo propulsor
 
 	/**
 	 * Constructor
