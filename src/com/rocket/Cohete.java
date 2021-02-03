@@ -29,7 +29,7 @@ public class Cohete {
 			rocket1 = new Cohete("LDSFJA32", 6);
 			System.out
 					.println("Output: \n" + rocket1.getCode() + ": " + rocket1.getNumPropulsores() + " propulsores");
-
+			
 			rocket2 = new Cohete("x", 3);
 			System.out
 					.println("Output: \n" + rocket2.getCode() + ": " + rocket2.getNumPropulsores() + " propulsores\n");
