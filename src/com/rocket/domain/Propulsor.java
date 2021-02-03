@@ -58,7 +58,7 @@ public class Propulsor {
 		this.panelPropulsor.setPreferredSize(new Dimension(350, 50));
 		this.panelPropulsor.setMaximumSize(new Dimension(350, 50));
 		
-		createPanelPropulsor(this.panelContenedor);
+		createPanelPropulsor();
 		this.panelContenedor.add(this.panelPropulsor);
 	}
 	
@@ -69,18 +69,18 @@ public class Propulsor {
 	private void refreshPanel() {
 		this.panelPropulsor.removeAll();
 		
-		createPanelPropulsor(this.panelContenedor);
+		createPanelPropulsor();
 		this.panelContenedor.validate();
 		this.panelContenedor.repaint();
 	}
 	
 	/**
 	 * Método para evitar duplicidad de código en los métodos init() y refreshPanel()
+	 * Crea una etiqueta con el identificador del propulsor y sus potencias actual y máxima
+	 * y la inserta en la lámina
 	 * 
-	 * @param panelContainer, contenedor al que insertar la etiqueta con el identificador
-	 *                        del propulsor y sus potencias actual y máxima
 	 */
-	private void createPanelPropulsor(JPanel panelContainer) {
+	private void createPanelPropulsor() {
 		JLabel label = new JLabel();
 		label.setBorder(BorderFactory.createTitledBorder("Propulsor " + (this.identificador)));
 		label.setText(" Potencia máxima: " + Integer.toString(this.potenciaMax) + "     Potencia actual: "
