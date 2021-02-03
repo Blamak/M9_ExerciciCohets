@@ -68,6 +68,7 @@ public class Propulsor {
 	 */
 	private void refreshPanel() {
 		this.panelPropulsor.removeAll();
+		
 		createPanelPropulsor(this.panelContenedor);
 		this.panelContenedor.validate();
 		this.panelContenedor.repaint();
@@ -91,7 +92,9 @@ public class Propulsor {
 	/**
 	 * Incrementa en una unidad la potencia actual del propulsor y reconstruye el panel
 	 * 
-	 * @throws InterruptedException, en CoheteHilos - método run()
+	 * Evita que el propulsor supere su potencia máxima
+	 * 
+	 * @throws InterruptedException, en CoheteHilos, método run()
 	 */
 	public void aumentar() throws InterruptedException {
 		if ( !(this.potenciaActual >= this.potenciaMax) ) {
@@ -102,6 +105,8 @@ public class Propulsor {
 
 	/**
 	 * Reduce en una unidad la potencia actual del propulsor y reconstruye el panel
+	 * 
+	 * Evita que la potencia del propulsor sea menor que cero
 	 * 
 	 * @throws InterruptedException, en CoheteHilos, método run()
 	 */

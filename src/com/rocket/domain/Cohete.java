@@ -6,11 +6,12 @@ import java.util.List;
 /**
  * Clase para crear el cohete
  * 
- * Sus atributos privados son: - la potencia máxima y actual, - un código
- * identificativo, - una lista con la potencia de cada uno de sus propulsores,
- * que utiliza en el método createPropulsores() para llamar al constuctor de la
- * la clase Propulsor, creando los propulsores, - y el número de propulsores de
- * los que dispone
+ * Sus atributos privados son: 
+ * - un código identificativo 
+ * - una lista con la potencia de cada uno de sus propulsores,
+ *   que emplea en el método createPropulsores() para llamar al constuctor de la
+ *   la clase Propulsor y crear cada uno de los propulsores
+ * - el número de propulsores de los que dispone, utilizado para
  * 
  * Contiene los métodos acelerar() y frenar() que activan un hilo de la clase
  * CoheteHilos cada vez que se pulsa uno de los botones de la ventana
@@ -21,7 +22,6 @@ public class Cohete {
 	private String codigo;
 	private List<Integer> potenciaPropulsores;
 	private List<Propulsor> propulsores = new ArrayList<>();
-	private int numPropulsores;
 
 	/**
 	 * Constructor de la clase, identificado por la cadena del código del cohete, y
@@ -31,11 +31,11 @@ public class Cohete {
 	 * su valor numérico al atributo numPropulsores, que contiene la cantidad de
 	 * propulsores creados
 	 * 
-	 * @param código,              String que contiene el código que identifica al
-	 *                             cohete
+	 * @param código,              String que identifica al cohete
 	 * @param potenciaPropulsores, lista con la potencia de los propulsores
-	 * @throws Exception, si el códgo no consta de ocho caracteres o no se ha
-	 *                    especificado ninguna potencia para propulsores
+	 * @throws Exception,          si el código no consta de ocho caracteres o no se ha
+	 *                             especificado ninguna potencia para los propulsores
+	 *                             
 	 */
 	public Cohete(String codigo, List<Integer> potenciaPropulsores) throws Exception {
 		if (codigo.length() != 8)
@@ -48,7 +48,6 @@ public class Cohete {
 		this.potenciaPropulsores = potenciaPropulsores;
 
 		createPropulsores();
-		this.numPropulsores = this.propulsores.size();
 	}
 
 	public String getCodigo() {
@@ -79,7 +78,7 @@ public class Cohete {
 	 * velocidad máxima
 	 */
 	public void acelerar() {
-		Runnable r = new CoheteHilos(this.propulsores, this.numPropulsores, 1);
+		Runnable r = new CoheteHilos(this.propulsores, 1);
 		Thread t = new Thread(r);
 		t.start();
 	}
@@ -89,7 +88,7 @@ public class Cohete {
 	 * cero
 	 */
 	public void frenar() {
-		Runnable r = new CoheteHilos(this.propulsores, this.numPropulsores, -1);
+		Runnable r = new CoheteHilos(this.propulsores, -1);
 		Thread t = new Thread(r);
 		t.start();
 	}
