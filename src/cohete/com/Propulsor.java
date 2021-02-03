@@ -1,8 +1,9 @@
+package cohete.com;
 
 public class Propulsor {
-	
+
 	private int potenciaMax;
-	
+
 	public Propulsor(int potenciaMax) {
 		this.potenciaMax = potenciaMax;
 	}
@@ -10,11 +11,4 @@ public class Propulsor {
 	public int getPotenciaMax() {
 		return this.potenciaMax;
 	}
-
-	public void setPotenciaMax(int potenciaMax) {
-		this.potenciaMax = potenciaMax;
-	}
-	
-	
-
 }
